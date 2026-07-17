@@ -191,7 +191,7 @@ internal class MainMenu : MonoBehaviour
 
         GUI.Label(
             new Rect(25f, 43f, 440f, 20f),
-            $"Lethal Company v81  •  Mod v{MyPluginInfo.PLUGIN_VERSION}",
+            $"Lethal Company  •  Mod v{MyPluginInfo.PLUGIN_VERSION}",
             MenuTheme.HeaderSubtitleStyle
         );
 
