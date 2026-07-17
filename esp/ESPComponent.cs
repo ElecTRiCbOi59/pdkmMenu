@@ -10,123 +10,258 @@ public class ESPComponent<T> : MonoBehaviour where T : MonoBehaviour
     protected Camera mainCamera;
     protected Canvas labelsCanvas;
     protected RectTransform PosRect;
+
     protected virtual Color TextColor => Color.white;
     protected virtual string CanvasName => typeof(T).Name + "_LabelCanvas";
-    protected virtual string DefaultText => "TEMP";
+
+    private const float ContentUpdateInterval = 0.1f;
 
     private Aura aura;
+    private float nextContentUpdateTime;
 
     private bool isPlayerType;
     private bool identityConfirmed;
     private PlayerControllerB cachedPlayer;
 
-    void Awake()
+    private void Awake()
     {
         targetObject = GetComponent<T>();
+
         if (targetObject == null)
         {
-            Debug.LogError($"{typeof(T).Name}_ESP: {typeof(T).Name} component is missing!");
+            Debug.LogError(
+                $"{typeof(T).Name}_ESP: {typeof(T).Name} component is missing!"
+            );
+
             Destroy(this);
             return;
         }
 
         isPlayerType = targetObject is PlayerControllerB;
-        if (isPlayerType) cachedPlayer = targetObject as PlayerControllerB;
 
-        labelsCanvas = GameObject.Find(CanvasName)?.GetComponent<Canvas>();
+        if (isPlayerType)
+        {
+            cachedPlayer = targetObject as PlayerControllerB;
+        }
+
+        nextContentUpdateTime =
+            Time.unscaledTime + Random.Range(0f, ContentUpdateInterval);
+    }
+
+    private void Update()
+    {
+        if (targetObject == null)
+        {
+            Destroy(this);
+            return;
+        }
+
+        ESPConfig settings = Plugin.ESPSettings;
+
+        if (settings == null || !settings.ESP.Value)
+        {
+            HideLabel();
+            RemoveAura();
+            return;
+        }
+
+        PlayerControllerB localPlayer =
+            GameNetworkManager.Instance?.localPlayerController;
+
+        if (!UpdatePlayerIdentity(localPlayer))
+        {
+            return;
+        }
+
+        if (Time.unscaledTime < nextContentUpdateTime)
+        {
+            return;
+        }
+
+        nextContentUpdateTime =
+            Time.unscaledTime + ContentUpdateInterval;
+
+        UpdateLabelContent();
+        UpdateAura();
+    }
+
+    private void LateUpdate()
+    {
+        if (targetObject == null)
+        {
+            return;
+        }
+
+        ESPConfig settings = Plugin.ESPSettings;
+
+        if (settings == null || !settings.ESP.Value)
+        {
+            HideLabel();
+            return;
+        }
+
+        PlayerControllerB localPlayer =
+            GameNetworkManager.Instance?.localPlayerController;
+
+        mainCamera = localPlayer?.gameplayCamera;
+
+        UpdateLabelPosition();
+    }
+
+    private bool UpdatePlayerIdentity(PlayerControllerB localPlayer)
+    {
+        if (!isPlayerType || identityConfirmed)
+        {
+            return true;
+        }
+
+        if (cachedPlayer == null || !cachedPlayer.isPlayerControlled)
+        {
+            return false;
+        }
+
+        if (cachedPlayer == localPlayer || cachedPlayer.IsLocalPlayer)
+        {
+            Destroy(this);
+            return false;
+        }
+
+        identityConfirmed = true;
+        return true;
+    }
+
+    private void UpdateLabelPosition()
+    {
+        if (!ShouldShowLabel() || mainCamera == null)
+        {
+            HideLabel();
+            return;
+        }
+
+        EnsureLabelExists();
+
+        if (!WorldToScreen(
+            mainCamera,
+            GetWorldPos(),
+            out Vector3 screenPosition
+        ))
+        {
+            HideLabel();
+            return;
+        }
+
+        NameText.enabled = true;
+        PosRect.position = screenPosition;
+    }
+
+    private void UpdateLabelContent()
+    {
+        if (
+            NameText == null ||
+            !NameText.enabled ||
+            !ShouldShowLabel()
+        )
+        {
+            return;
+        }
+
+        UpdateText();
+    }
+
+    private void UpdateAura()
+    {
+        if (!ShouldShowAuras())
+        {
+            RemoveAura();
+            return;
+        }
+
+        if (aura == null)
+        {
+            aura = targetObject.gameObject.AddComponent<Aura>();
+            aura.Initialize(targetObject);
+        }
+
+        aura.auraColor = GetauraColor();
+    }
+
+    private void RemoveAura()
+    {
+        if (aura == null)
+        {
+            return;
+        }
+
+        Destroy(aura);
+        aura = null;
+    }
+
+    private void EnsureLabelExists()
+    {
+        if (NameText != null)
+        {
+            return;
+        }
+
+        EnsureCanvasExists();
+
+        GameObject nameObject =
+            new GameObject($"{typeof(T).Name}_ESPLabel");
+
+        nameObject.transform.SetParent(labelsCanvas.transform, false);
+
+        NameText = nameObject.AddComponent<Text>();
+        NameText.font =
+            Resources.GetBuiltinResource<Font>("Arial.ttf");
+        NameText.fontSize = 12;
+        NameText.alignment = TextAnchor.MiddleCenter;
+        NameText.color = TextColor;
+        NameText.text = GetEntityLabel();
+        NameText.raycastTarget = false;
+
+        PosRect = NameText.rectTransform;
+        PosRect.localPosition = Vector3.zero;
+    }
+
+    private void EnsureCanvasExists()
+    {
+        if (labelsCanvas != null)
+        {
+            return;
+        }
+
+        labelsCanvas =
+            GameObject.Find(CanvasName)?.GetComponent<Canvas>();
+
         if (labelsCanvas == null)
         {
             CreateCanvas();
         }
-
-        GameObject NameObject = new GameObject("NameObject");
-        NameObject.transform.SetParent(labelsCanvas.transform);
-        NameText = NameObject.AddComponent<Text>();
-        NameText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-        NameText.fontSize = 13;
-        NameText.alignment = TextAnchor.MiddleCenter;
-        NameText.color = Color.white;
-        NameText.text = DefaultText;
-
-        PosRect = NameText.GetComponent<RectTransform>() ?? NameText.gameObject.AddComponent<RectTransform>();
-        PosRect.localPosition = Vector3.zero;
-        NameText.raycastTarget = false;
     }
 
     private void CreateCanvas()
     {
         GameObject canvasObject = new GameObject(CanvasName);
+
         labelsCanvas = canvasObject.AddComponent<Canvas>();
         labelsCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
         labelsCanvas.sortingOrder = 0;
+
         canvasObject.AddComponent<CanvasScaler>();
         canvasObject.AddComponent<GraphicRaycaster>();
-        RectTransform rt = labelsCanvas.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(Screen.width, Screen.height);
+
+        RectTransform rectTransform =
+            labelsCanvas.GetComponent<RectTransform>();
+
+        rectTransform.sizeDelta =
+            new Vector2(Screen.width, Screen.height);
     }
 
-    void Update()
+    private void HideLabel()
     {
-       
-
-        if (targetObject == null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        mainCamera = GameNetworkManager.Instance.localPlayerController?.gameplayCamera;
-
-        if (ShouldShowLabel() && mainCamera != null)
-        {
-            // 2. Try to calculate screen position
-            if (WorldToScreen(mainCamera, GetWorldPos(), out Vector3 screenPos))
-            {
-                // Only enable and move if the object is in front of the camera (screenPos.z > 0)
-                NameText.enabled = true;
-                UpdateText();
-                PosRect.position = screenPos;
-            }
-            else
-            {
-                // Object is behind the camera or out of bounds
-                NameText.enabled = false;
-            }
-        }
-        else
+        if (NameText != null)
         {
             NameText.enabled = false;
-        }
-
-        if (isPlayerType && !identityConfirmed)
-        {
-            if (cachedPlayer.isPlayerControlled)
-            {
-                if (cachedPlayer == GameNetworkManager.Instance.localPlayerController || cachedPlayer.IsLocalPlayer)
-                {
-                    Destroy(this);
-                    return;
-                }
-                identityConfirmed = true;
-            }
-            else return;
-        }
-        if (ShouldShowAuras())
-        {
-            if (aura == null)
-            {
-                aura = targetObject.gameObject.AddComponent<Aura>();
-                aura.Initialize(targetObject);
-            }
-            aura.auraColor = GetauraColor();
-        }
-        else
-        {
-            if (aura != null)
-            {
-                Destroy(aura);
-                aura = null;
-            }
         }
     }
 
@@ -138,40 +273,71 @@ public class ESPComponent<T> : MonoBehaviour where T : MonoBehaviour
         NameText.color = TextColor;
     }
 
-    protected virtual string GetEntityLabel() => targetObject.name;
-    protected virtual Vector3 GetWorldPos() => targetObject.transform.position;
+    protected virtual string GetEntityLabel()
+    {
+        return targetObject.name;
+    }
 
-    protected virtual bool ShouldShowLabel() => false;
-    protected virtual bool ShouldShowAuras() => false;
-    protected virtual Color GetauraColor() => Color.white;
+    protected virtual Vector3 GetWorldPos()
+    {
+        return targetObject.transform.position;
+    }
 
-public static bool WorldToScreen(Camera camera, Vector3 world, out Vector3 screen)
-{
-    Vector3 viewportPos = camera.WorldToViewportPoint(world);
-    screen = viewportPos;
+    protected virtual bool ShouldShowLabel()
+    {
+        return false;
+    }
 
-    // Check if the object is in front of the camera
-    if (viewportPos.z <= 0) return false;
+    protected virtual bool ShouldShowAuras()
+    {
+        return false;
+    }
 
-    // Check if the object is within the viewport bounds (0 to 1 range)
-    if (viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1) return false;
+    protected virtual Color GetauraColor()
+    {
+        return Color.white;
+    }
 
-    // Convert viewport (0-1) to screen pixels
-    screen.x *= Screen.width;
-    screen.y *= Screen.height;
-    return true;
-}
+    public static bool WorldToScreen(
+        Camera camera,
+        Vector3 worldPosition,
+        out Vector3 screenPosition
+    )
+    {
+        Vector3 viewportPosition =
+            camera.WorldToViewportPoint(worldPosition);
 
-    void OnDestroy()
+        screenPosition = viewportPosition;
+
+        if (viewportPosition.z <= 0f)
+        {
+            return false;
+        }
+
+        if (
+            viewportPosition.x < 0f ||
+            viewportPosition.x > 1f ||
+            viewportPosition.y < 0f ||
+            viewportPosition.y > 1f
+        )
+        {
+            return false;
+        }
+
+        screenPosition.x *= Screen.width;
+        screenPosition.y *= Screen.height;
+
+        return true;
+    }
+
+    private void OnDestroy()
     {
         if (NameText != null)
         {
             Destroy(NameText.gameObject);
+            NameText = null;
         }
-        if (aura != null)
-        {
-            Destroy(aura);
-            aura = null;
-        }
+
+        RemoveAura();
     }
 }

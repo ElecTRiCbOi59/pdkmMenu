@@ -1,5 +1,4 @@
 using GameNetcodeStuff;
-using pdkmMenu;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -12,6 +11,7 @@ public class Aura : MonoBehaviour
 
     public Color auraColor = Color.cyan;
     private static ESPConfig ESPSettings => pdkmMenu.Plugin.ESPSettings;
+
     public void Initialize<T>(T target) where T : MonoBehaviour
     {
         targetComponent = target; // 2. Save target here
@@ -51,14 +51,14 @@ public class Aura : MonoBehaviour
         if (targetComponent is Turret)
         {
             // We go to the parent (TurretContainer) to see the whole hierarchy
-            GameObject turretRoot = targetComponent.transform.parent.gameObject;
-            List<Renderer> turretRenders = GetRenderers(turretRoot);
+            Transform rootTransform = targetComponent.transform.parent ?? targetComponent.transform;
+            List<Renderer> turretRenders = GetRenderers(rootTransform.gameObject);
 
             foreach (var originalRen in turretRenders)
             {
                 if (originalRen == null) continue;
 
-                string name = originalRen.name.ToLower();
+                string name = originalRen.name.ToLowerInvariant();
 
                 // 3. TARGET ONLY: The parts that make up the actual turret body
                 // These are the main renderers found in your hierarchy log
@@ -78,18 +78,18 @@ public class Aura : MonoBehaviour
         if (targetComponent is SpikeRoofTrap)
         {
             // We go to the parent (TurretContainer) to see the whole hierarchy
-            GameObject turretRoot = targetComponent.transform.parent.gameObject;
-            List<Renderer> turretRenders = GetRenderers(turretRoot);
+            Transform rootTransform = targetComponent.transform.parent ?? targetComponent.transform;
+            List<Renderer> turretRenders = GetRenderers(rootTransform.gameObject);
 
             foreach (var originalRen in turretRenders)
             {
                 if (originalRen == null) continue;
 
-                string name = originalRen.name.ToLower();
+                string name = originalRen.name.ToLowerInvariant();
 
                 // 3. TARGET ONLY: The parts that make up the actual turret body
                 // These are the main renderers found in your hierarchy log
-                bool isBodyPart =  name.Contains("movingbar") ||
+                bool isBodyPart = name.Contains("movingbar") ||
                                             name.Contains("spikeroof") ||
                                             name.Contains("basesupport");
 
@@ -100,40 +100,43 @@ public class Aura : MonoBehaviour
             }
             return;
         }
-        if (targetComponent is PlayerControllerB)
+        if (targetComponent is PlayerControllerB player)
         {
-            SkinnedMeshRenderer meshRenderer = targetComponent.GetComponent<PlayerControllerB>().thisPlayerModel;
-            if (meshRenderer != null || meshRenderer.gameObject.activeInHierarchy)
+            SkinnedMeshRenderer meshRenderer = player.thisPlayerModel;
+
+            if (meshRenderer != null && meshRenderer.gameObject.activeInHierarchy)
             {
                 DoThing(meshRenderer);
             }
+
             return;
         }
 
         List<Renderer> allRenderers = GetRenderers(targetComponent);
 
         foreach (var originalRen in allRenderers)
-            {
-                if (originalRen == null || !originalRen.gameObject.activeInHierarchy) continue;
-                if (originalRen is ParticleSystemRenderer || originalRen is TrailRenderer) continue;
+        {
+            if (originalRen == null || !originalRen.gameObject.activeInHierarchy) continue;
+            if (originalRen is ParticleSystemRenderer || originalRen is TrailRenderer) continue;
 
-                if (targetComponent is EnemyAI)
-                {
-                    if (!(originalRen is SkinnedMeshRenderer)) continue;
-                }
-                if (targetComponent is GrabbableObject)
-                {
-                    bool bad = originalRen.name.ToLower().Contains("scannode");
-                    bool bad2 = originalRen.name.ToLower().Contains("radarboosterdot");
-                    if (bad || bad2) continue;
-                }
-                //if(targetComponent is Turret)
-                //{
-                //    if (originalRen.name.ToLower().Contains("rangeindicator")) continue;
-                //}
+            if (targetComponent is EnemyAI)
+            {
+                if (!(originalRen is SkinnedMeshRenderer)) continue;
+            }
+            if (targetComponent is GrabbableObject)
+            {
+                bool bad = originalRen.name.ToLower().Contains("scannode");
+                bool bad2 = originalRen.name.ToLower().Contains("radarboosterdot");
+                if (bad || bad2) continue;
+            }
+            //if(targetComponent is Turret)
+            //{
+            //    if (originalRen.name.ToLower().Contains("rangeindicator")) continue;
+            //}
             DoThing(originalRen);
         }
     }
+
     private void DoThing(Renderer originalRen)
     {
         GameObject ghost = new GameObject("aura_Ghost_" + originalRen.name);
@@ -182,7 +185,7 @@ public class Aura : MonoBehaviour
         return list;
     }
 
-    void Update()
+    private void Update()
     {
         var settings = ESPSettings;
         if (auraMaterial != null)
@@ -194,7 +197,7 @@ public class Aura : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         foreach (var ghost in ghostObjects)
         {

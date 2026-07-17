@@ -1,35 +1,26 @@
 ﻿using GameNetcodeStuff;
 using HarmonyLib;
 using pdkmMenu;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using UnityEngine;
 
-internal class EnemyAI_Patches
+internal static class EnemyAI_Patches
 {
-    public static List<EnemyAI> activeEnemies = new List<EnemyAI>();
+    public static readonly List<EnemyAI> activeEnemies = new();
 
-    // --- PATCH 1: The Universal Start Tracker ---
-    [HarmonyPatch] // No specific type here because TargetMethods handles it
-    internal class UniversalStartTracker
+    // Attach ESP to enemies when they are created.
+    // Patching the base EnemyAI.Start avoids Harmony conflicts with modded enemies.
+    [HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.Start))]
+    internal static class EnemyStartPatch
     {
-        [HarmonyTargetMethods]
-        static IEnumerable<MethodBase> TargetMethods()
-        {
-            return AccessTools.AllTypes()
-                .Where(t => t.IsSubclassOf(typeof(EnemyAI)) && !t.IsAbstract)
-                .Select(t => AccessTools.Method(t, "Start"))
-                .Where(m => m != null);
-        }
-
         [HarmonyPostfix]
-        static void Postfix(EnemyAI __instance)
+        private static void Postfix(EnemyAI __instance)
         {
-            if (__instance == null) return;
+            if (__instance == null)
+            {
+                return;
+            }
 
-            if (__instance.gameObject.GetComponent<Enemy_ESP>() == null)
+            if (__instance.GetComponent<Enemy_ESP>() == null)
             {
                 __instance.gameObject.AddComponent<Enemy_ESP>();
             }
@@ -41,28 +32,47 @@ internal class EnemyAI_Patches
         }
     }
 
-    [HarmonyPatch(typeof(EnemyAI), "PlayerIsTargetable")]
-    internal class TargetablePatch
+    // Override whether the local player can be targeted by enemies.
+    [HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.PlayerIsTargetable))]
+    internal static class TargetablePatch
     {
         [HarmonyPrefix]
-        public static bool Prefix(PlayerControllerB playerScript, ref bool __result)
+        private static bool Prefix(
+            PlayerControllerB playerScript,
+            ref bool __result
+        )
         {
-            if (playerScript == null) return true;
-            if (playerScript != StartOfRound.Instance?.localPlayerController) return true;
+            if (playerScript == null)
+            {
+                return true;
+            }
+
+            if (playerScript != StartOfRound.Instance?.localPlayerController)
+            {
+                return true;
+            }
+
+            if (Plugin.SelfSettings == null)
+            {
+                return true;
+            }
 
             __result = Plugin.SelfSettings.PlayerIsTargetable.Value;
             return false;
         }
     }
 
-    // --- PATCH 3: Cleanup ---
-    [HarmonyPatch(typeof(EnemyAI), "OnDestroy")]
-    internal class CleanupPatch
+    // Remove destroyed enemies from the active list.
+    [HarmonyPatch(typeof(EnemyAI), nameof(EnemyAI.OnDestroy))]
+    internal static class CleanupPatch
     {
         [HarmonyPostfix]
-        public static void Postfix(EnemyAI __instance)
+        private static void Postfix(EnemyAI __instance)
         {
-            activeEnemies.Remove(__instance);
+            if (__instance != null)
+            {
+                activeEnemies.Remove(__instance);
+            }
         }
     }
 }

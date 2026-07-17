@@ -1,81 +1,108 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
-    <AssemblyName>pdkmMenu</AssemblyName>
-    <Product>o_0</Product>
-    <Version>3.0.5</Version>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>latest</LangVersion>
-    <RestoreAdditionalProjectSources>
-      https://api.nuget.org/v3/index.json;
-      https://nuget.bepinex.dev/v3/index.json;
-      https://nuget.samboy.dev/v3/index.json
-    </RestoreAdditionalProjectSources>
-    <RootNamespace>pdkmMenu</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net46</TargetFramework>
+		<AssemblyName>pdkmMenu</AssemblyName>
+		<Product>o_0</Product>
+		<Version>3.1.0</Version>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<LangVersion>latest</LangVersion>
+		<RootNamespace>pdkmMenu</RootNamespace>
 
-  <ItemGroup>
-    <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
-    <PackageReference Include="BepInEx.Core" Version="5.*" />
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile" />
-  </ItemGroup>
+		<RestoreAdditionalProjectSources>https://api.nuget.org/v3/index.json;https://nuget.bepinex.dev/v3/index.json;https://nuget.samboy.dev/v3/index.json</RestoreAdditionalProjectSources>
 
-  <ItemGroup>
-    <EmbeddedResource Include="localization\*.lang" />
-  </ItemGroup>
-  
-  <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <None Remove="localization\translations.csv" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="DissonanceVoip">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\DissonanceVoip.dll</HintPath>
-    </Reference>
-    <Reference Include="Facepunch.Steamworks.Win64">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
-    </Reference>
-    <Reference Include="netstandard">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\netstandard.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.InputSystem">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.InputSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Netcode.Runtime">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.Core.Runtime">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Unity.TextMeshPro.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\Games\SteamLibrary\steamapps\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.UI.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  
-  <ItemGroup>
-    <EmbeddedResource Include="localization\translations.csv" />
-  </ItemGroup>
-  
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy &quot;$(TargetPath)&quot; &quot;D:\Games\SteamLibrary\steamapps\common\Lethal Company\BepInEx\plugins\&quot; /Y" />
-  </Target>
+		<LethalCompanyPath Condition="'$(LethalCompanyPath)' == '' and '$(LETHAL_COMPANY_PATH)' != ''">$(LETHAL_COMPANY_PATH)</LethalCompanyPath>
+
+		<LethalCompanyPath Condition="'$(LethalCompanyPath)' == '' and Exists('$(ProgramFiles(x86))\Steam\steamapps\common\Lethal Company\Lethal Company.exe')">$(ProgramFiles(x86))\Steam\steamapps\common\Lethal Company</LethalCompanyPath>
+
+		<ManagedPath Condition="'$(LethalCompanyPath)' != ''">$(LethalCompanyPath)\Lethal Company_Data\Managed</ManagedPath>
+
+		<PluginOutputPath Condition="'$(PluginOutputPath)' == '' and '$(PDKMENU_OUTPUT_PATH)' != ''">$(PDKMENU_OUTPUT_PATH)</PluginOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
+		<PackageReference Include="BepInEx.Core" Version="5.*" />
+		<PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
+		<PackageReference Include="System.ValueTuple" Version="4.5.0" />
+		<PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile" />
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
+		<PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="localization\translations.csv" />
+
+		<EmbeddedResource Include="localization\translations.csv" />
+		<EmbeddedResource Include="localization\*.lang" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>$(ManagedPath)\Assembly-CSharp.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="DissonanceVoip">
+			<HintPath>$(ManagedPath)\DissonanceVoip.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Facepunch.Steamworks.Win64">
+			<HintPath>$(ManagedPath)\Facepunch.Steamworks.Win64.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="netstandard">
+			<HintPath>$(ManagedPath)\netstandard.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Unity.InputSystem">
+			<HintPath>$(ManagedPath)\Unity.InputSystem.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Unity.Netcode.Runtime">
+			<HintPath>$(ManagedPath)\Unity.Netcode.Runtime.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Unity.RenderPipelines.Core.Runtime">
+			<HintPath>$(ManagedPath)\Unity.RenderPipelines.Core.Runtime.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Unity.RenderPipelines.HighDefinition.Runtime">
+			<HintPath>$(ManagedPath)\Unity.RenderPipelines.HighDefinition.Runtime.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="Unity.TextMeshPro">
+			<HintPath>$(ManagedPath)\Unity.TextMeshPro.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="UnityEngine">
+			<HintPath>$(ManagedPath)\UnityEngine.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+
+		<Reference Include="UnityEngine.UI">
+			<HintPath>$(ManagedPath)\UnityEngine.UI.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+	<Target Name="ValidateLethalCompanyPath" BeforeTargets="ResolveReferences">
+		<Error Condition="'$(ManagedPath)' == '' or !Exists('$(ManagedPath)\Assembly-CSharp.dll')" Text="Lethal Company assemblies were not found. Set the LETHAL_COMPANY_PATH environment variable or pass /p:LethalCompanyPath=&quot;path to Lethal Company&quot;." />
+	</Target>
+
+	<Target Name="CopyPluginToProfile" AfterTargets="Build" Condition="'$(PluginOutputPath)' != ''">
+		<MakeDir Directories="$(PluginOutputPath)" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginOutputPath)" SkipUnchangedFiles="true" />
+	</Target>
+
 </Project>
