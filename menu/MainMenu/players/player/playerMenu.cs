@@ -1,14 +1,6 @@
-﻿using pdkmMenu;
-using BepInEx.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
 using GameNetcodeStuff;
-using System.Numerics;
-
+using pdkmMenu;
+using UnityEngine;
 
 public class PlayerMenu : MonoBehaviour
 {
@@ -34,7 +26,8 @@ public class PlayerMenu : MonoBehaviour
         //selfConfig = Plugin.SelfSettings;
     }
 
-    int audio_indexPlayer = 0;
+    private int audio_indexPlayer = 0;
+
     public void update(PlayerControllerB player)
     {
         playerMenuGUI.CurrentColumn = 2;
@@ -46,10 +39,16 @@ public class PlayerMenu : MonoBehaviour
         }
         //StartOfRound.Instance.localPlayerController.actualClientId == The id used in rpc calls
         //StartOfRound.Instance.localPlayerController.playerClientId == the players index.
-        playerMenuGUI.AddButton(LKey.Spectate, () => Spectate.SwitchCamera(player));
+        playerMenuGUI.AddButton(
+            LKey.Spectate,
+            () => Spectate.SwitchCamera(player),
+            Spectate.SelectedPlayer == player
+                && Spectate.canvasObj != null
+                && Spectate.canvasObj.activeSelf
+        );
         playerMenuGUI.AddButton(LKey.TpTo, () => TeleportMod.TeleportToPos(player.transform.position));
         audio_indexPlayer = playerMenuGUI.AddSlider(0, SoundManager.Instance.syncedAudioClips.Length, audio_indexPlayer, audio_indexPlayer.ToString());
-        playerMenuGUI.AddButton(LKey.PlayAudio, () =>{var pos = player.transform.position;SoundManager.Instance.PlayAudio1AtPositionForAllClients(pos, audio_indexPlayer);});
+        playerMenuGUI.AddButton(LKey.PlayAudio, () => { var pos = player.transform.position; SoundManager.Instance.PlayAudio1AtPositionForAllClients(pos, audio_indexPlayer); });
 
         int damageAmount = 10;
         playerMenuGUI.AddButton(LKey.Damage, () => PlayerMods.ChangePlayerHealh(player, damageAmount));
@@ -73,7 +72,6 @@ public class PlayerMenu : MonoBehaviour
         playerMenuGUI.CurrentColumn = 0;
     }
 
-
     //public void SetSubMenu(SelfMenuPages input)
     //{
     //    if (input == currentSubmenu)
@@ -86,4 +84,3 @@ public class PlayerMenu : MonoBehaviour
     //    }
     //}
 }
-

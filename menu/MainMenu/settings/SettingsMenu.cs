@@ -1,7 +1,5 @@
-﻿using pdkmMenu;
-using Unity.Netcode;
+using pdkmMenu;
 using UnityEngine;
-
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class SettingsMenu : MonoBehaviour
     {
         settingsMenuGUI.ButtonIndex = 0; // Reset index
         settingsMenuGUI.AddButton(LKey.AutoStart, () => { Plugin.MenuSettings.AutoStart.Value = !Plugin.MenuSettings.AutoStart.Value; }, Plugin.MenuSettings.AutoStart.Value);
-        settingsMenuGUI.AddButton(LKey.AutoStartOnline, () => { Plugin.MenuSettings.AutoStart.Value = !Plugin.MenuSettings.AutoStart.Value; }, Plugin.MenuSettings.AutoStartOnline.Value);
+        settingsMenuGUI.AddButton(LKey.AutoStartOnline, () => { Plugin.MenuSettings.AutoStartOnline.Value = !Plugin.MenuSettings.AutoStartOnline.Value; }, Plugin.MenuSettings.AutoStartOnline.Value);
     }
 }
-

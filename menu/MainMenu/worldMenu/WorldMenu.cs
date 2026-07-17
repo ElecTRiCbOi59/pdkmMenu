@@ -1,10 +1,11 @@
-﻿using GameNetcodeStuff;
 using pdkmMenu;
 using UnityEngine;
+
 internal class WorldMenu : MonoBehaviour
 {
     private guiBase worldMenuGUI;
     private WorldConfig worldConfig;
+
     private void Start()
     {
         worldMenuGUI = gameObject.AddComponent<guiBase>();
@@ -16,8 +17,6 @@ internal class WorldMenu : MonoBehaviour
     private static int planetIndex = 0;
     private static string message = "Hi";
     private static int audio_index = 0;
-
-
 
     private static int ItemCost = 0;
 
@@ -33,8 +32,6 @@ internal class WorldMenu : MonoBehaviour
         worldMenuGUI.AddButton(LKey.Emoji, () => { worldConfig.ToggleConfigEntry(worldConfig.SpamMessage); }, worldConfig.SpamMessage.Value);
         worldConfig.SpamMessageRotation.Value = worldMenuGUI.AddSlider(0, 360, worldConfig.SpamMessageRotation.Value, worldConfig.SpamMessageRotation.Value.ToString());
         worldConfig.SpamMessageIndex.Value = worldMenuGUI.AddSlider(0, 17, worldConfig.SpamMessageIndex.Value, worldConfig.SpamMessageIndex.Value.ToString());
-
-
 
         worldMenuGUI.AddButton(LKey.ForceStart, () => { WorldMods.StartMatch(); });
         worldMenuGUI.AddButton(LKey.ForceEnd, () => { WorldMods.EndMatch(); });
@@ -53,7 +50,7 @@ internal class WorldMenu : MonoBehaviour
 
         worldMenuGUI.CurrentColumn = 3;
         worldMenuGUI.ButtonIndex = 0;
-        worldMenuGUI.AddButton(LKey.ToggleItems, () => { WorldMods.ToggleItems(); });
+        worldMenuGUI.AddButton(LKey.ToggleItems, () => { WorldMods.ToggleItems(); }, WorldMods.TogItems);
         WorldMods.interval = worldMenuGUI.AddSlider(0, 1, WorldMods.interval, WorldMods.interval.ToString());
         worldMenuGUI.AddButton(LKey.ShotGuns, () => { WorldMods.ToggleShotGuns(); }, WorldMods.ShotGunToggle);
 
@@ -62,10 +59,10 @@ internal class WorldMenu : MonoBehaviour
         worldMenuGUI.AddButton(LKey.DespawnMobs, () => { SpawnHelper.DeSpawnAllEnemies(); });
         worldMenuGUI.AddButton(LKey.FixSteam, () => { WorldMods.FixSteamPipes(); });
         worldMenuGUI.AddButton(LKey.ToggleDoors, () => { WorldMods.ToggleDoors(); }, WorldMods.doorToggle);
-        worldMenuGUI.AddButton(LKey.DisableTurrets, () => { WorldMods.ToggleTurrets(); });
+        worldMenuGUI.AddButton(LKey.DisableTurrets, () => { WorldMods.ToggleTurrets(); }, !WorldMods.turretToggle);
         worldMenuGUI.AddButton(LKey.ExplodeMine, () => { WorldMods.ExplodeAllMines(); });
-        worldMenuGUI.AddButton(LKey.UnlockAllDoors, () => { WorldMods.UnlockAllDoors();});
-        worldMenuGUI.AddButton(LKey.FactoryLights, () => { WorldMods.ToggelFactoryLights();}, WorldMods.FactoryLights);
+        worldMenuGUI.AddButton(LKey.UnlockAllDoors, () => { WorldMods.UnlockAllDoors(); });
+        worldMenuGUI.AddButton(LKey.FactoryLights, () => { WorldMods.ToggelFactoryLights(); }, WorldMods.FactoryLights);
         worldMenuGUI.AddButton(LKey.CanBridgeFall, () => { worldConfig.ToggleConfigEntry(worldConfig.CanBridgeFall); }, worldConfig.CanBridgeFall.Value);
 
         //if (SoundManager.Instance != null && SoundManager.Instance.currentLevelAmbience != null)
@@ -96,8 +93,6 @@ internal class WorldMenu : MonoBehaviour
         //    worldMenuGUI.AddButton("shipAmbienceInsanity", () => SoundManager.Instance.PlayAmbienceClipServerRpc(2, shipIndex1, 1.0f, true));
         //}
 
-
-
         //0 SoundManager.Instance.currentLevelAmbience.insideAmbienceInsanity.Length;
         //0 SoundManager.Instance.currentLevelAmbience.insideAmbience.Length;
 
@@ -113,19 +108,16 @@ internal class WorldMenu : MonoBehaviour
         //SoundManager.Instance.currentLevelAmbience.insideAmbience.Length;
         //SoundManager.Instance.currentLevelAmbience.insideAmbienceInsanity.Length;
 
-
-
         //worldMenuGUI.AddButton("HangerDoor", () => { StartOfRound.Instance.shipDoorsAnimator.SetBool("Closed", !StartOfRound.Instance.shipDoorsAnimator.GetBool("Closed")); }, StartOfRound.Instance.shipDoorsAnimator.GetBool("Closed") ? true : false);
 
         //RoundManager.Instance.playersManager.shipDoorsAnimator.SetBool("Closed", true);
         //IngamePlayerSettings.Instance.SetLaunchInOnlineMode(true)
         //UngamePlayerSettings.Instance.settings.startInOnlineMode
 
-
-
         worldMenuGUI.CurrentColumn = 0;
         worldMenuGUI.ButtonIndex = 0;
     }
+
     private void PlanetButton()
     {
         string label = "temp";
@@ -156,7 +148,4 @@ internal class WorldMenu : MonoBehaviour
             terminal.PlayTerminalAudioServerRpc(audio_index);
         });
     }
-
-
-
 }

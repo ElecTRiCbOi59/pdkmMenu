@@ -16,8 +16,9 @@ public class MenuConfig : ConfigCategory
     public ConfigEntry<bool> ShowFPS { get; set; }
     public ConfigEntry<string> Language { get; set; }
 
-
-    public MenuConfig(ConfigFile config) : base(config) { }
+    public MenuConfig(ConfigFile config) : base(config)
+    {
+    }
 
     protected override void BindConfigs()
     {
@@ -34,39 +35,55 @@ public class MenuConfig : ConfigCategory
         AutoStartOnline = Plugin.configFile.Bind("Menu", "AutoStartOnline", true, "True auto start online. false auto start lan");
         Language = Plugin.configFile.Bind("Menu", "Language", "en", "Localization language file name (example: en, es, fr).");
     }
+
     public override void CheckKeys()
     {
         if (ToggleCursor.Value.IsDown()) ToggleCursorFunc();
     }
+
     private static bool ShowCursor = false;
+
     public static void ToggleCursorFunc()
     {
-        ShowCursor = !ShowCursor;
-        if (StartOfRound.Instance == null || StartOfRound.Instance.localPlayerController == null) return;
-        QuickMenuManager quickMenuManager = StartOfRound.Instance.localPlayerController.quickMenuManager;
-        if (quickMenuManager != null)
+        SetCursorVisible(!ShowCursor);
+    }
+
+    public static void SetCursorVisible(bool visible)
+    {
+        ShowCursor = visible;
+
+        if (StartOfRound.Instance == null || StartOfRound.Instance.localPlayerController == null)
         {
-            //QuickMenuManagerInstance.menuContainer.SetActive(true);
-            if (ShowCursor)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                if (!StartOfRound.Instance.localPlayerUsingController)
-                {
-                    Cursor.visible = true;
-                }
-
-                quickMenuManager.isMenuOpen = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Confined;
-                if (!StartOfRound.Instance.localPlayerUsingController)
-                {
-                    Cursor.visible = false;
-                }
-
-                quickMenuManager.isMenuOpen = false;
-            }
+            return;
         }
+
+        QuickMenuManager quickMenuManager = StartOfRound.Instance.localPlayerController.quickMenuManager;
+
+        if (quickMenuManager == null)
+        {
+            return;
+        }
+
+        if (ShowCursor)
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            if (!StartOfRound.Instance.localPlayerUsingController)
+            {
+                Cursor.visible = true;
+            }
+
+            quickMenuManager.isMenuOpen = true;
+            return;
+        }
+
+        Cursor.lockState = CursorLockMode.Confined;
+
+        if (!StartOfRound.Instance.localPlayerUsingController)
+        {
+            Cursor.visible = false;
+        }
+
+        quickMenuManager.isMenuOpen = false;
     }
 }

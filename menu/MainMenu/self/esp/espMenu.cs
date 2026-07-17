@@ -1,6 +1,4 @@
-﻿using pdkmMenu;
-using BepInEx.Configuration;
-using System;
+using pdkmMenu;
 using UnityEngine;
 
 public class EspMenu : MonoBehaviour
@@ -35,30 +33,31 @@ public class EspMenu : MonoBehaviour
 
         espMenuGUI.AddButton(LKey.MasterESP, () => esp.ToggleConfigEntry(esp.ESP), esp.ESP.Value);
 
-        espMenuGUI.AddButton(LKey.Labels, () => { }, false);
+        espMenuGUI.AddSectionHeader(LKey.Labels);
         espMenuGUI.AddButton(LKey.ItemLabel, () => esp.ToggleConfigEntry(esp.Item_Label), esp.Item_Label.Value);
         espMenuGUI.AddButton(LKey.PlayerLabel, () => esp.ToggleConfigEntry(esp.Player_Label), esp.Player_Label.Value);
         espMenuGUI.AddButton(LKey.EnemyLabel, () => esp.ToggleConfigEntry(esp.Enemy_Label), esp.Enemy_Label.Value);
         espMenuGUI.AddButton(LKey.TrapsLabel, () => esp.ToggleConfigEntry(esp.Traps_Label), esp.Traps_Label.Value);
         espMenuGUI.AddButton(LKey.DoorsLabel, () => esp.ToggleConfigEntry(esp.Doors_Label), esp.Doors_Label.Value);
 
-        espMenuGUI.AddButton(LKey.Auras, () => { }, false);
+        espMenuGUI.AddSectionHeader(LKey.Auras);
         espMenuGUI.AddButton(LKey.ItemAuras, () => esp.ToggleConfigEntry(esp.Item_Auras), esp.Item_Auras.Value);
         espMenuGUI.AddButton(LKey.PlayerAuras, () => esp.ToggleConfigEntry(esp.Player_Auras), esp.Player_Auras.Value);
         espMenuGUI.AddButton(LKey.EnemyAuras, () => esp.ToggleConfigEntry(esp.Enemy_Auras), esp.Enemy_Auras.Value);
         espMenuGUI.AddButton(LKey.TrapsAuras, () => esp.ToggleConfigEntry(esp.Traps_Auras), esp.Traps_Auras.Value);
 
-        espMenuGUI.AddButton(LKey.Aurasettings, () => { }, false);
+        espMenuGUI.AddSectionHeader(LKey.Aurasettings);
 
         // Sliders automatically use CurrentColumn for their X position now
-        esp.AurasOpacity.Value = espMenuGUI.AddSlider(0f, 1f, esp.AurasOpacity.Value, $"Opacity: {esp.AurasOpacity.Value:F2}");
-        esp.Player_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Player_AurasColorHue.Value, $"Player Hue: {esp.Player_AurasColorHue.Value:F2}");
-        esp.Enemy_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Enemy_AurasColorHue.Value, $"Enemy Hue: {esp.Enemy_AurasColorHue.Value:F2}");
-        esp.Item_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Item_AurasColorHue.Value, $"Item Hue: {esp.Item_AurasColorHue.Value:F2}");
-        esp.Traps_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Traps_AurasColorHue.Value, $"Traps Hue: {esp.Traps_AurasColorHue.Value:F2}");
+        esp.AurasOpacity.Value = espMenuGUI.AddSlider(0f, 1f, esp.AurasOpacity.Value, $"Opacity: {esp.AurasOpacity.Value:F2}", true, 0.01f, true);
+        esp.Player_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Player_AurasColorHue.Value, $"Player Hue: {esp.Player_AurasColorHue.Value:F2}", true, 0.01f, true);
+        esp.Enemy_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Enemy_AurasColorHue.Value, $"Enemy Hue: {esp.Enemy_AurasColorHue.Value:F2}", true, 0.01f, true);
+        esp.Item_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Item_AurasColorHue.Value, $"Item Hue: {esp.Item_AurasColorHue.Value:F2}", true, 0.01f, true);
+        esp.Traps_AurasColorHue.Value = espMenuGUI.AddSlider(0f, 1f, esp.Traps_AurasColorHue.Value, $"Traps Hue: {esp.Traps_AurasColorHue.Value:F2}", true, 0.01f, true);
 
         // Path Guide Settings
-        espMenuGUI.AddButton(LKey.PathGuide, () => { }, false);
+        espMenuGUI.AddVerticalSpace(8f);
+        espMenuGUI.AddSectionHeader(LKey.PathGuide);
         espMenuGUI.AddButton(LKey.EnablePathGuide, () => self.ToggleConfigEntry(self.EnablePathGuide), self.EnablePathGuide.Value);
 
         if (self.EnablePathGuide.Value)
