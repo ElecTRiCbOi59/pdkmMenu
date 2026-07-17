@@ -1,0 +1,148 @@
+﻿Key,en,de,es,fr,ja,ru,zh-cn,zh-tw
+Aurasettings,--- Aura Settings ---,--- Aura-Einstellungen ---,--- Ajustes de Aura ---,--- Paramètres d'Aura ---,--- オーラ設定 ---,--- Настройки ауры ---,--- 光晕设置 ---,--- 光暈設置 ---
+Auras,--- Auras ---,--- Auras ---,--- Auras ---,--- Auras ---,--- オーラ ---,--- Ауры ---,--- 光晕 ---,--- 光暈 ---
+Labels,--- Labels ---,--- Labels ---,--- Etiquetas ---,--- Étiquettes ---,--- ラベル ---,--- Метки ---,--- 标签 ---,--- 標籤 ---
+PathGuide,--- Path Guide ---,--- Pfadführung ---,--- Guía de Camino ---,--- Guide de chemin ---,--- パスガイド ---,--- Путеводитель ---,--- 路径引导 ---,--- 路徑引導 ---
+Spawning,--- Spawning ---,--- Spawnen ---,--- Spawning ---,--- Apparition ---,--- スポーン ---,--- Спавн ---,--- 生成 ---,--- 生成 ---
+AddAllItemsToDesk,Add all Items to desk,Alle Gegenstände auf den Tisch legen,Poner todos los objetos en la mesa,Mettre tous les objets sur le bureau,すべてのアイテムを机に置く,Положить все предметы на стол,将所有物品放到桌上,將所有物品放到桌上
+AlwaysName,AlwaysName,Namen immer anzeigen,Siempre nombre,Toujours le nom,常に名前を表示,Всегда имя,始终显示名字,始終顯示名字
+AntiQuickSand,AntiQuickSand,Anti-Treibsand,Anti-Arena movediza,Anti-sables mouvants,流砂防止,Анти-зыбучий песок,防流沙,防流沙
+AttackPlayers,Attack Players,Spieler angreifen,Atacar jugadores,Attaquer les joueurs,プレイヤーを攻撃,Атаковать игроков,攻击玩家,攻擊玩家
+AutoStart,AutoStart,Auto-Start,Inicio automático,Démarrage auto,自動開始,Автостарт,自动开始,自動開始
+AutoStartOnline,AutoStartOnline,Auto-Start online,Inicio automático en línea,Démarrage auto en ligne,オンライン自動開始,Автостарт онлайн,自动开始在线,自動開始在線
+BreakLegsSfx,BreakLegs sfx,Beine brechen SFX,SFX romper piernas,SFX jambes cassées,足が折れる音,Звук перелома ног,断腿音效,斷腿音效
+Cameras,Cameras,Kameras,Cámaras,Caméras,カメラ,Камеры,摄像头,攝像頭
+CanBridgeFall,CanBridgeFall,Brücke kann einstürzen,El puente puede caer,Le pont peut tomber,橋が落ちる可能性あり,Мост может упасть,桥会塌,橋會塌
+ChatAs,Chat As,Chatten als,Chatear como,Discuter comme,としてチャット,Чат от имени,以此身份聊天,以此身份聊天
+CoHost,CoHost,Co-Host,Co-Anfitrión,Co-Hôte,共同ホスト,Со-хост,副房主,副房主
+Company,Company,Firma,Compañía,Entreprise,会社,Компания,公司,公司
+CustomInteraction,CustomInteraction,Benutzerinteraktion,Interacción personalizada,Interaction personnalisée,カスタムインタラクション,Пользовательское взаимодействие,自定义交互,自定義交互
+CyclePlanet,Cycle Planet,Planet wechseln,Ciclo de planeta,Changer de planète,惑星を切り替える,Сменить планету,切换星球,切換星球
+Damage,Damage,Schaden,Daño,Dégâts,ダメージ,Урон,伤害,傷害
+Delete,Delete,Löschen,Borrar,Supprimer,削除,Удалить,删除,刪除
+DespawnObjects,Despawn Objects,Objekte entfernen,Desaparecer objetos,Supprimer les objets,オブジェクトを消去,Удалить объекты,清除物体,清除物體
+DisableJetpack,Disable jetpack,Jetpack deaktivieren,Desactivar jetpack,Désactiver le jetpack,ジェットパック無効化,Отключить джетпак,禁用喷气背包,禁用噴氣背包
+DisableTurret,DisableTurret,Geschütz deaktivieren,Desactivar torreta,Désactiver la tourelle,タレット無効化,Отключить турель,禁用炮塔,禁用炮塔
+DisableTurrets,DisableTurrets,Geschütze deaktivieren,Desactivar torretas,Désactiver les tourelles,タレット無効化（複数）,Отключить турели,禁用所有炮塔,禁用所有炮塔
+DoorsLabel,Doors Label,Tür-Label,Etiqueta de puertas,Étiquette des portes,ドアラベル,Метка дверей,门标签,門標籤
+DropAll,Drop All,Alles fallen lassen,Soltar todo,Tout lâcher,すべて落とす,Выбросить всё,丢弃所有,丟棄所有
+EjectAll,Eject All,Alle auswerfen,Expulsar a todos,Éjecter tout,すべて排出,Выбросить всех,弹出所有,彈出所有
+Emoji,emoji,emoji,emoji,emoji,絵文字,эмодзи,表情符号,表情符號
+EnablePathGuide,Enable Path Guide,Pfadführung aktivieren,Activar guía de camino,Activer le guide de chemin,パスガイド有効化,Включить путеводитель,启用路径引导,啟用路徑引導
+EnableTurret,EnableTurret,Geschütz aktivieren,Activar torreta,Activer la tourelle,タレット有効化,Включить турель,启用炮塔,啟用炮塔
+EndMatchAs,End Match as,Match beenden als,Terminar partida como,Terminer le match comme,として試合終了,Завершить матч как,以此身份结束比赛,以此身份結束比賽
+EnemiesTarget,Enemies Target,Ziel der Feinde,Objetivo de enemigos,Cible des ennemis,敵のターゲット,Цель врагов,敌人目标,敵人目標
+EnemyAuras,Enemy Auras,Feind-Auras,Auras de enemigos,Auras ennemis,敵のオーラ,Ауры врагов,敌人光晕,敵人光暈
+EnemyLabel,Enemy Label,Feind-Label,Etiqueta de enemigo,Étiquette ennemie,敵ラベル,Метка врага,敌人标签,敵人標籤
+ESP,ESP,ESP,ESP,ESP,ESP,ВХ,透视,透視
+ExplodeLandMine,ExplodeLandMine,Landmine sprengen,Explotar mina terrestre,Exploser mine terrestre,地雷を爆発させる,Взорвать мину,引爆地雷,引爆地雷
+ExplodeMine,ExplodeMine,Mine sprengen,Explotar mina,Exploser la mine,ミヌを爆発させる,Взорвать мину,引爆炸弹,引爆炸彈
+FactoryLights,FactoryLights,Fabrik-Lichter,Luces de fábrica,Lumières d'usine,工場の照明,Свет на фабрике,工厂灯光,工廠燈光
+FastClimb,FastClimb,Schnelles Klettern,Escalada rápida,Escalade rapide,高速クライミング,Быстрый подъем,快速攀爬,快速攀爬
+FixSteam,Fix steam,Steam reparieren,Reparar Steam,Réparer Steam,Steamを修復,Починить Steam,修复Steam,修復Steam
+FlickerLights,Flicker Lights,Lichter flackern,Luces parpadeantes,Lumières vacillantes,ライトを点滅させる,Мигание светом,灯光闪烁,燈光閃爍
+ForceEnd,ForceEnd,Erzwinge Ende,Forzar fin,Forcer la fin,強制終了,Принудительное завершение,强制结束,強制結束
+ForceStart,ForceStart,Erzwinge Start,Forzar inicio,Forcer le démarrage,強制開始,Принудительный старт,强制开始,強制開始
+FreeCam,FreeCam,Freie Kamera,Cámara libre,Caméra libre,フリーカメラ,Свободная камера,自由视角,自由視角
+FriendsGodmode,Friends Godmode,Godmode für Freunde,Modo Dios para amigos,Mode Dieu amis,フレンドゴッドモード,Режим бога для друзей,队友无敌,隊友無敵
+GodMode,GodMode,GodMode,Modo Dios,Mode Dieu,ゴッドモード,Режим бога,无敌模式,無敵模式
+GrabDistance,GrabDistance,Greifdistanz,Distancia de agarre,Distance de préhension,掴み距離,Дистанция захвата,抓取距离,抓取距離
+GrabInLobby,GrabInLobby,Im Lobby greifen,Agarrar en lobby,Saisir dans le lobby,ロビーで掴む,Хватать в лобби,在大厅抓取,在大廳抓取
+HangerDoor,HangerDoor,Hangartor,Puerta del hangar,Porte du hangar,ハンガードア,Дверь ангара,机库门,機庫門
+Harvest,Harvest,Ernten,Cosechar,Moisson,収穫,Сбор,收获,收穫
+Heal,Heal,Heilen,Curar,Soigner,回復,Лечить,治疗,治療
+HearAll,HearAll,Alles hören,Oír todo,Tout entendre,すべて聞く,Слышать всех,收听所有,收聽所有
+HideFog,HideFog,Nebel ausblenden,Ocultar niebla,Masquer le brouillard,霧を隠す,Скрыть туман,隐藏雾气,隱藏霧氣
+Host,Host,Host,Anfitrión,Hôte,ホスト,Хост,房主,房主
+InfAmmo,InfAmmo,Unendliche Munition,Munición infinita,Munitions infinies,無限弾薬,Беск. патроны,无限弹药,無限彈藥
+InfBattery,InfBattery,Unendlicher Akku,Batería infinita,Batterie infinie,無限バッテリー,Беск. батарея,无限电池,無限電池
+InfSprint,InfSprint,Unendlicher Sprint,Sprint infinito,Sprint infini,無限スプリント,Беск. спринт,无限耐力,無限耐力
+InfTet,InfTet,Unendliche Energie,Energía infinita,Énergie infinie,無限エネルギー,Беск. энергия,无限能量,無限能量
+InsideAmbience,insideAmbience,Innen-Ambiente,Ambiente interior,Ambiance intérieure,室内アンビエンス,Внутренний эмбиент,室内氛围音,室內氛圍音
+InsideAmbienceInsanity,insideAmbienceInsanity,Innen-Ambiente (Wahnsinn),Ambiente interior (Locura),Ambiance intérieure (Folie),室内アンビエンス（狂気）,Внутренний эмбиент (безумие),室内氛围音（疯狂）,室內氛圍音（瘋狂）
+IsTargetable,IsTargetable,Kann anvisiert werden,Es seleccionable,Est ciblable,ターゲット可能,Можно выбрать целью,可被锁定,可被鎖定
+ItemAuras,Item Auras,Item-Auras,Auras de objetos,Auras d'objets,アイテムのオーラ,Ауры предметов,物品光晕,物品光暈
+ItemLabel,Item Label,Item-Label,Etiqueta de objeto,Étiquette d'objet,アイテムラベル,Метка предмета,物品标签,物品標籤
+JumpSfx,Jump sfx,Sprung-SFX,SFX de salto,SFX de saut,ジャンプ音,Звук прыжка,跳跃音效,跳躍音效
+Kill,kill,Töten,Matar,Tuer,殺す,Убить,击杀,擊殺
+KillAllMobs,Kill All Mobs,Alle Gegner töten,Matar a todos los mobs,Tuer tous les monstres,全モブ殺害,Убить всех мобов,击杀所有生物,擊殺所有生物
+KillEnemy,KillEnemy,Gegner töten,Matar enemigo,Tuer l'ennemi,敵を殺す,Убить врага,击杀敌人,擊殺敵人
+LandFromJumpSfx,LandFromJump sfx,Landes-SFX,SFX aterrizaje de salto,SFX atterrissage,着地音,Звук приземления,落地音效,落地音效
+LightningStrike,Lightning strike,Blitzschlag,Impacto de rayo,Coup de foudre,落雷,Удар молнии,雷击,雷擊
+LockPicker,LockPicker,Dietrich,Ganzúa,Crochet,ロックピッカー,Отмычка,开锁器,開鎖器
+MainDoorPath,Main Door Path,Pfad zur Haupttür,Camino puerta principal,Chemin porte principale,メインドアへの道,Путь к главной двери,主门路径,主門路徑
+MakeLimp,Make Limp,Humpeln lassen,Hacer cojear,Faire boiter,足を不自由にする,Заставить хромать,使瘸腿,使瘸腿
+MakeNoise,MakeNoise,Lärm machen,Hacer ruido,Faire du bruit,音を出す,Шуметь,发出噪音,發出噪音
+Mark,Mark,Markieren,Marcar,Marquer,マーク,Отметить,标记,標記
+MasterESP,MASTER ESP,MASTER ESP,ESP Maestro,Master ESP,マスターESP,Мастер ESP,主透视,主透視
+MaxBestiary,MaxBestiary,Bestiarium max.,Bestiario máx.,Bestiaire max,図鑑最大化,Макс. бестиарий,解锁全图鉴,解鎖全圖鑑
+MeteorStrike,meteor strike,Meteorschlag,Impacto de meteoro,Frappe de météore,メテオストライク,Метеоритный удар,流星击,流星擊
+NightVision,NightVision,Nachtsicht,Visión nocturna,Vision nocturne,暗視,Ночное зрение,夜视,夜視
+NoClip,NoClip,NoClip,NoClip,NoClip,ノークリップ,Сквозь стены,穿墙,穿牆
+NoEnemies,No Enemies,Keine Gegner,Sin enemigos,Pas d'ennemis,敵なし,Без врагов,无敌人,無敵人
+NoObjects,No Objects,Keine Objekte,Sin objetos,Pas d'objets,オブジェクトなし,Без предметов,无物体,無物體
+OpenBigDoor,OpenBigDoor,Große Tür öffnen,Abrir puerta grande,Ouvrir grande porte,大扉を開ける,Открыть большую дверь,开启大门,開啟大門
+Organize,Oragnize,Organisieren,Organizar,Organiser,整理,Организовать,整理,整理
+OrbitItems,Orbit Items,Items umkreisen,Orbitar objetos,Objets en orbite,アイテムを周回させる,Орбита предметов,物品环绕,物品環繞
+OutsideAmbience,outsideAmbience,Außen-Ambiente,Ambiente exterior,Ambiance extérieure,屋外アンビエンス,Внешний эмбиент,室外氛围音,室外氛圍音
+OutsideAmbienceInsanity,outsideAmbienceInsanity,Außen-Ambiente (Wahnsinn),Ambiente exterior (Locura),Ambiance extérieure (Folie),屋外アンビエンス（狂気）,Внешний эмбиент (безумие),室外氛围音（疯狂）,室外氛圍音（瘋狂）
+PlayAudio,Play Audio,Audio abspielen,Reproducir audio,Lire l'audio,オーディオ再生,Играть аудио,播放音频,播放音頻
+PlaySound,Play Sound,Sound abspielen,Reproducir sonido,Jouer le son,サウンド再生,Играть звук,播放声音,播放聲音
+PlayerAuras,Player Auras,Spieler-Auras,Auras de jugadores,Auras de joueurs,プレイヤーのオーラ,Ауры игроков,玩家光晕,玩家光暈
+PlayerLabel,Player Label,Spieler-Label,Etiqueta de jugador,Étiquette de joueur,プレイヤーラベル,Метка игрока,玩家标签,玩家標籤
+Players,Players,Spieler,Jugadores,Joueurs,プレイヤー,Игроки,玩家,玩家
+Recall,Recall,Zurückrufen,Retirar,Rappel,リコール,Отозвать,召回,召回
+ReloadConfig,Reload Config,Konfig neu laden,Recargar config,Recharger config,設定再読み込み,Перезагрузить конфиг,重载配置,重載配置
+ResetLevel,Reset Level,Level zurücksetzen,Reiniciar nivel,Réinitialiser le niveau,レベルリセット,Сбросить уровень,重置关卡,重置關卡
+RespawnPlayers,Respawn Players,Spieler wiederbeleben,Reaparecer jugadores,Réapparaître les joueurs,プレイヤーをリスポーン,Возродить игроков,复活玩家,復活玩家
+SaveLayout,SaveLayout,Layout speichern,Guardar diseño,Enregistrer la mise en page,レイアウト保存,Сохранить макет,保存布局,保存佈局
+Self,self,Ich,Mismo,Soi,自分,Себя,自己,自己
+ServerMessage,ServerMessage,Servernachricht,Mensaje del servidor,Message du serveur,サーバーメッセージ,Серверное сообщение,服务器消息,服務器消息
+SetBuyRate,Set Buy Rate,Kaufrate setzen,Establecer tasa de compra,Régler le taux d'achat,購入率設定,Установить курс покупки,设置购买率,設置購買率
+SetCredits,Set Credits,Credits setzen,Establecer créditos,Régler les crédits,クレジット設定,Установить кредиты,设置信用点,設置信用點
+SetPatience,Set Patience,Geduld setzen,Establecer paciencia,Régler la patience,忍耐力設定,Установить терпение,设置耐心,設置耐心
+SetQuotaDeadline,Set Quota/Deadline,Quote/Frist setzen,Establecer cuota/plazo,Régler quota/délai,ノルマ/期限設定,Установить квоту/дедлайн,设置配额/期限,設置配額/期限
+SetPrice,SetPrice,Preis setzen,Establecer precio,Régler le prix,価格設定,Установить цену,设置价格,設置價格
+ShipPath,Ship Path,Pfad zum Schiff,Camino a la nave,Chemin vers le vaisseau,船への道,Путь к кораблю,飞船路径,飛船路徑
+ShipAmbience,shipAmbience,Schiff-Ambiente,Ambiente de la nave,Ambiance du vaisseau,船のアンビエンス,Эмбиент корабля,飞船氛围音,飛船氛圍音
+ShipAmbienceInsanity,shipAmbienceInsanity,Schiff-Ambiente (Wahnsinn),Ambiente de la nave (Locura),Ambiance du vaisseau (Folie),船のアンビエンス（狂気）,Эмбиент корабля (безумие),飞船氛围音（疯狂）,飛船氛圍音（瘋狂）
+ShootFast,ShootFast,Schnell schießen,Disparar rápido,Tir rapide,速射,Быстрая стрельба,快速射击,快速射擊
+ShotGuns,ShotGuns,Schrotflinten,Escopetas,Fusils à pompe,ショットガン,Дробовики,散弹枪,散彈槍
+SideDoorsPath,Side Doors Path,Pfad zu Seitentüren,Camino puertas laterales,Chemin portes latérales,サイドドアへの道,Путь к боковым дверям,侧门路径,側門路徑
+SignalMessage,SignalMessage,Signalnachricht,Mensaje de señal,Message de signal,信号メッセージ,Сигнальное сообщение,信号消息,信號消息
+SpawnAllEnemies,Spawn All enemies,Alle Gegner spawnen,Aparecer todos los enemigos,Apparition tous ennemis,全敵スポーン,Спавн всех врагов,生成所有敌人,生成所有敵人
+SpawnAllItems,Spawn All Items,Alle Items spawnen,Aparecer todos los objetos,Apparition tous objets,全アイテムスポーン,Спавн всех предметов,生成所有物品,生成所有物品
+SpawnEnemy,Spawn Enemy,Gegner spawnen,Aparecer enemigo,Apparition ennemi,敵スポーン,Спавн врага,生成敌人,生成敵人
+SpawnItemsMenu,Spawn Items Menu,Items-Spawn-Menü,Menú de aparición de objetos,Menu apparition objets,アイテムスポーンメニュー,Меню спавна предметов,物品生成菜单,物品生成菜單
+SpawnMapObject,Spawn Map Object,Kartenobjekt spawnen,Aparecer objeto de mapa,Apparition objet carte,マップオブジェクトスポーン,Спавн объекта карты,生成地图物体,生成地圖物體
+SpawnNearPlayer,Spawn Near Player,In Spielnähe spawnen,Aparecer cerca del jugador,Apparition près du joueur,プレイヤー近くにスポーン,Спавн рядом с игроком,在玩家附近生成,在玩家附近生成
+SpawnThereLaggy,Spawn There (Laggy),Dort spawnen (laggy),Aparecer allí (lento),Apparition là-bas (lent),そこにスポーン（重い）,Спавн там (лаги),在远处生成（卡顿）,在遠處生成（卡頓）
+Spectate,Spectate,Zuschauen,Observar,Spectateur,観戦,Наблюдение,观战,觀戰
+SpeedHack,SpeedHack,SpeedHack,Hack de velocidad,Hack de vitesse,スピードハック,Спидхак,加速挂,加速掛
+StoreAll,Store All,Alles lagern,Almacenar todo,Tout stocker,すべて格納,Сохранить всё,储存所有,儲存所有
+SubmitChallengeScrap,Submit Challenge scrap,Herausforderungs-Schrott abgeben,Entregar chatarra de desafío,Soumettre ferraille défi,チャレンジのスクラップを提出,Сдать лом испытания,提交挑战废料,提交挑戰廢料
+TeleportAllItems,Teleport All Items,Alle Items teleportieren,Teletransportar todos los objetos,Téléporter tous les objets,全アイテムテレポート,Телепорт всех предметов,传送所有物品,傳送所有物品
+TeleportEnemies,Teleport Enemies,Feinde teleportieren,Teletransportar enemigos,Téléporter les ennemis,敵をテレポート,Телепорт врагов,传送敌人,傳送敵人
+TeleportToEntrance,Teleport to entrance,Zum Eingang teleportieren,Teletransportar a la entrada,Téléporter à l'entrée,入口にテレポート,Телепорт к входу,传送到入口,傳送到入口
+TeleportToShip,Teleport to ship,Zum Schiff teleportieren,Teletransportar a la nave,Téléporter au vaisseau,船にテレポート,Телепорт к кораблю,传送到飞船,傳送到飛船
+TestRoom,Test Room,Testraum,Sala de pruebas,Salle de test,テストルーム,Тестовая комната,测试房,測試房
+ToggleCams,Toggle cams,Kameras umschalten,Alternar cámaras,Basculer caméras,カメラ切り替え,Переключить камеры,切换摄像头,切換攝像頭
+ToggleItems,Toggle Items,Items umschalten,Alternar objetos,Basculer objets,アイテム切り替え,Переключить предметы,切换物品,切換物品
+ToggleDoor,ToggleDoor,Tür umschalten,Alternar puerta,Basculer la porte,ドア切り替え,Переключить дверь,开关门,開關門
+ToggleDoors,ToggleDoors,Türen umschalten,Alternar puertas,Basculer les portes,ドア切り替え（複数）,Переключить двери,开关所有门,開關所有門
+ToolTips,ToolTips,Tooltips,Consejos,Astuces,ツールチップ,Подсказки,工具提示,工具提示
+TpTo,tp to,tp zu,tp a,tp à,へテレポート,тп к,传送到,傳送到
+TpToMark,Tp To Mark,TP zur Markierung,TP a la marca,TP au marqueur,マークへテレポート,ТП к метке,传送到标记,傳送到標記
+TrapsAuras,Traps Auras,Fallen-Auras,Auras de trampas,Auras de pièges,トラップのオーラ,Ауры ловушек,陷阱光晕,陷阱光暈
+TrapsLabel,Traps Label,Fallen-Label,Etiqueta de trampa,Étiquette de piège,トラップラベル,Метка ловушки,陷阱标签,陷阱標籤
+UnlockAll,Unlock All,Alles freischalten,Desbloquear todo,Tout débloquer,すべてアンロック,Разблокировать всё,解锁所有,解鎖所有
+UnlockAllDoors,UnlockAllDoors,Alle Türen freischalten,Desbloquear todas las puertas,Débloquer toutes les portes,全ドア開錠,Открыть все двери,解锁所有门,解鎖所有門
+UnlockDoor,UnlockDoor,Tür freischalten,Desbloquear puerta,Débloquer la porte,ドア開錠,Открыть дверь,解锁门,解鎖門
+Visor,Visor,Visier,Visor,Visière,バイザー,Визор,面罩,面罩
+World,World,Welt,Mundo,Monde,ワールド,Мир,世界,世界
+Language,Language,Sprache,Idioma,Langue,言語,Язык,语言,語言
+LanguageFormat,Language: {0},Sprache: {0},Idioma: {0},Langue : {0},言語: {0},Язык: {0},语言: {0},語言: {0}
+DespawnProps,Despawn Props,Requisiten entfernen,Desaparecer accesorios,Supprimer les accessoires,プロップ消去,Удалить пропсы,清除小道具,清除小道具
+DespawnMobs,Despawn Mobs,Gegner entfernen,Desaparecer mobs,Supprimer les monstres,モブ消去,Удалить мобов,清除生物,清除生物
+RevokeCoHost,Revoke Co-Host,Co-Host entziehen,Revocar co-anfitrión,Révoquer le co-hôte,共同ホスト権限剥奪,Лишить со-хоста,撤回副房主,撤回副房主
+GiveCoHost,Give Co-Host,Co-Host geben,Dar co-anfitrión,Donner le co-hôte,共同ホスト権限付与,Дать со-хоста,给予副房主,給予副房主
