@@ -1,6 +1,6 @@
 # PDKM's Cheat Mod Menu
 
-A cheat menu for **Lethal Company v81**.
+A cheat menu for **Lethal Company**.
 
 This project is a continuation of the original **PDKM's Cheat Mod Menu**, updated to support newer versions of Lethal Company while improving compatibility, performance, stability and the user interface.
 
