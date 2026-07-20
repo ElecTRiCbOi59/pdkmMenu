@@ -1,4 +1,4 @@
-using pdkmMenu;
+﻿using pdkmMenu;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -238,6 +238,64 @@ public class guiBase : MonoBehaviour
         }
 
         GUI.EndScrollView();
+    }
+
+    public void AddSelectionList(
+        IReadOnlyList<Tuple<string, bool, Action>> items,
+        ref Vector2 scrollPosition,
+        int rowDisplayCount = 8
+    )
+    {
+        MenuTheme.EnsureInitialised();
+
+        float rowHeight = MenuTheme.ControlHeight + MenuTheme.ControlGap;
+        float visibleHeight = Mathf.Min(
+            ContentRect.height - CurrentY,
+            rowDisplayCount * rowHeight
+        );
+        visibleHeight = Mathf.Max(MenuTheme.ControlHeight, visibleHeight);
+
+        float contentHeight = Mathf.Max(
+            visibleHeight,
+            items.Count * rowHeight
+        );
+
+        Rect listRect = new(CurrentX, CurrentY, ColumnWidth, visibleHeight);
+        ReportContentBottom(listRect.yMax);
+
+        scrollPosition = GUI.BeginScrollView(
+            listRect,
+            scrollPosition,
+            new Rect(0f, 0f, ColumnWidth - 18f, contentHeight),
+            false,
+            contentHeight > listRect.height,
+            GUIStyle.none,
+            MenuTheme.VerticalScrollbarStyle,
+            MenuTheme.ScrollViewBackgroundStyle
+        );
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            Tuple<string, bool, Action> item = items[i];
+            Rect rect = new(
+                0f,
+                i * rowHeight,
+                ColumnWidth - 18f,
+                MenuTheme.ControlHeight
+            );
+
+            GUIStyle style = item.Item2
+                ? MenuTheme.ActiveButtonStyle
+                : MenuTheme.ButtonStyle;
+
+            if (GUI.Button(rect, item.Item1, style))
+            {
+                item.Item3?.Invoke();
+            }
+        }
+
+        GUI.EndScrollView();
+        ButtonIndex += Mathf.CeilToInt(visibleHeight / rowHeight);
     }
 
     public void AddImgListItem(

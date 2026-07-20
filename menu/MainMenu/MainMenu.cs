@@ -16,6 +16,7 @@ public enum MainMenuPages
 internal class MainMenu : MonoBehaviour
 {
     private const int WindowId = 731059;
+    private static MainMenu instance;
 
     private SelfMenu selfMenu;
     private PlayersMenu playersMenu;
@@ -28,9 +29,15 @@ internal class MainMenu : MonoBehaviour
     private readonly Vector2[] pageScrollPositions = new Vector2[7];
     private readonly float[] pageContentHeights = new float[7];
     private StartOfRound observedRound;
+    private bool isQuickHidden;
 
     public MainMenuPages currentSubmenu = MainMenuPages.Self;
     public bool IsOpened;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void OnEnable()
     {
@@ -41,6 +48,11 @@ internal class MainMenu : MonoBehaviour
     {
         SceneManager.activeSceneChanged -= HandleActiveSceneChanged;
         CloseMenu();
+
+        if (instance == this)
+        {
+            instance = null;
+        }
     }
 
     private void Start()
@@ -90,6 +102,7 @@ internal class MainMenu : MonoBehaviour
     private void CloseMenu()
     {
         IsOpened = false;
+        isQuickHidden = false;
         MenuConfig.SetCursorVisible(false);
     }
 
@@ -101,6 +114,13 @@ internal class MainMenu : MonoBehaviour
         }
 
         MenuTheme.EnsureInitialised();
+
+        if (isQuickHidden)
+        {
+            DrawQuickRestoreButton();
+            return;
+        }
+
         windowRect = GUI.Window(WindowId, windowRect, DrawWindow, GUIContent.none, MenuTheme.WindowStyle);
     }
 
@@ -145,6 +165,18 @@ internal class MainMenu : MonoBehaviour
         GUI.EndScrollView();
 
         GUI.DragWindow(new Rect(0f, 0f, windowRect.width, MenuTheme.HeaderHeight));
+    }
+
+    public static void ScrollPageToTop(MainMenuPages page)
+    {
+        if (instance == null)
+        {
+            return;
+        }
+
+        int pageIndex = (int)page;
+        instance.pageScrollPositions[pageIndex] = Vector2.zero;
+        instance.pageContentHeights[pageIndex] = 0f;
     }
 
     private void HandlePageScroll(
@@ -201,6 +233,46 @@ internal class MainMenu : MonoBehaviour
             new Rect(0f, MenuTheme.HeaderHeight - 1f, windowRect.width, 1f),
             MenuTheme.Border
         );
+    }
+
+    private void DrawQuickHideButton(float footerY)
+    {
+        const float buttonWidth = 118f;
+        const float buttonHeight = 34f;
+
+        Rect buttonRect = new(
+            14f,
+            footerY + 9f,
+            buttonWidth,
+            buttonHeight
+        );
+
+        GUIContent content = new("◀  Collapse", "Temporarily hide the menu");
+
+        if (GUI.Button(buttonRect, content, MenuTheme.ActiveButtonStyle))
+        {
+            isQuickHidden = true;
+        }
+    }
+
+    private void DrawQuickRestoreButton()
+    {
+        const float buttonWidth = 100f;
+        const float buttonHeight = 40f;
+
+        Rect buttonRect = new(
+            4f,
+            4f,
+            buttonWidth,
+            buttonHeight
+        );
+
+        GUIContent content = new("▶  Menu", "Restore the PDKM menu");
+
+        if (GUI.Button(buttonRect, content, MenuTheme.ActiveButtonStyle))
+        {
+            isQuickHidden = false;
+        }
     }
 
     private void DrawRoleStatus()
@@ -316,7 +388,7 @@ internal class MainMenu : MonoBehaviour
 
         if (GUI.Button(buttonRect, label, style))
         {
-            currentSubmenu = page;
+            SetCurrentPage(page);
         }
 
         y += height + gap;
@@ -357,8 +429,18 @@ internal class MainMenu : MonoBehaviour
             Localization.CurrentLanguage
         );
 
+        DrawQuickHideButton(y);
+
+        const float reloadButtonWidth = 160f;
+        const float languageButtonWidth = 210f;
+        const float rightPadding = 14f;
+        const float gap = 10f;
+
+        float reloadButtonX = windowRect.width - rightPadding - reloadButtonWidth;
+        float languageButtonX = reloadButtonX - gap - languageButtonWidth;
+
         if (GUI.Button(
-            new Rect(14f, y + 9f, 210f, 34f),
+            new Rect(languageButtonX, y + 9f, languageButtonWidth, 34f),
             languageLabel,
             MenuTheme.FooterButtonStyle
         ))
@@ -367,7 +449,7 @@ internal class MainMenu : MonoBehaviour
         }
 
         if (GUI.Button(
-            new Rect(windowRect.width - 174f, y + 9f, 160f, 34f),
+            new Rect(reloadButtonX, y + 9f, reloadButtonWidth, 34f),
             Localization.T(LKey.ReloadConfig),
             MenuTheme.FooterButtonStyle
         ))
@@ -410,7 +492,15 @@ internal class MainMenu : MonoBehaviour
     {
         if (Plugin.MenuSettings.OpenMenu.Value.IsDown())
         {
-            IsOpened = !IsOpened;
+            if (IsOpened)
+            {
+                CloseMenu();
+            }
+            else
+            {
+                IsOpened = true;
+                isQuickHidden = false;
+            }
         }
 
         if (Plugin.MenuSettings.OpenSelfMenu.Value.IsDown())
@@ -441,8 +531,19 @@ internal class MainMenu : MonoBehaviour
 
     private void OpenPage(MainMenuPages page)
     {
-        currentSubmenu = page;
+        SetCurrentPage(page);
         IsOpened = true;
+        isQuickHidden = false;
+    }
+
+    private void SetCurrentPage(MainMenuPages page)
+    {
+        if (currentSubmenu == MainMenuPages.Host && page != MainMenuPages.Host)
+        {
+            hostMenu?.ResetItemSpawner();
+        }
+
+        currentSubmenu = page;
     }
 
     private static bool CanUseHostMenu()
